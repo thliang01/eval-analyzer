@@ -1,0 +1,34 @@
+name: Keep Streamlit App Alive
+
+on:
+  schedule:
+    # Ping every 6 hours (to stay well under 12-hour limit)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  ping-app:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Ping Streamlit App
+      run: |
+        # Your Streamlit app URL
+        APP_URL="https://ai-twinkle-eval-analyzer.streamlit.app/"
+        
+        echo "Pinging Streamlit app at $(date)"
+        
+        # Send HTTP request to keep app awake
+        response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$APP_URL")
+        
+        if [ "$response" -eq 200 ]; then
+          echo "✅ App is alive! HTTP status: $response"
+        else
+          echo "⚠️ Unexpected response: $response"
+          # Don't fail the workflow for non-200 responses
+          # as the ping still serves its purpose
+        fi
+        
+    - name: Log timestamp
+      run: |
+        echo "Keep-alive ping completed at: $(date -u)"
