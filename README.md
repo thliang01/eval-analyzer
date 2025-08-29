@@ -76,6 +76,25 @@ streamlit run app.py
 ```
 或者可以到 Twinkle AI [Eval logs](https://huggingface.co/collections/twinkle-ai/eval-logs-6811a657da5ce4cbd75dbf50) collections 下載範例。
 
+## ⚠️ 檔案格式相容性注意事項
+
+**重要提醒**：此工具目前支援特定的 JSON/JSONL 格式。來自外部資料集（如 Hugging Face 儲存庫）的檔案可能無法直接相容。
+
+### 常見問題
+- **缺少必要欄位**：缺少 `config` 或 `dataset_results` 欄位的檔案將無法載入
+- **錯誤的檔案命名**：請使用 `results_*.json` 而非 `eval_results_*.jsonl` 格式
+- **外部資料集格式**：來自其他工具或儲存庫的評估日誌可能使用不同的架構
+- **欄位命名**：不同的欄位名稱（例如 `accuracy` vs `accuracy_mean`）可能導致解析錯誤
+
+### 疑難排解
+如果遇到「缺少必要欄位」錯誤：
+1. 確認您的檔案包含所有必要的頂層欄位
+2. 檢查巢狀物件是否遵循預期結構
+3. 對於外部資料集，考慮建立轉換腳本或[提出議題](https://github.com/ai-twinkle/eval-analyzer/issues)請求格式支援
+
+### 貢獻
+我們歡迎支援額外格式的貢獻！請參閱我們的[貢獻指南](CONTRIBUTING.md)或提交功能請求。
+
 ## 📊 輸出範例
 
 - **圖表**：顯示各模型在不同類別的 accuracy_mean 比較。
