@@ -2,6 +2,11 @@
 
 一個基於 🎈 **Streamlit** 的互動式工具，用來分析 **[Twinkle Eval](https://github.com/ai-twinkle/Eval)** 格式的評估檔案（`.json` / `.jsonl`）。  
 
+## 🌐 線上使用
+- [Twinkle Eval Analyzer (Zeabur 部署)](https://twinkle-ai-eval-analyzer.zeabur.app/) (thanks @BbsonLin)
+- [Eval Analyzer (GitHub Pages)](https://doggy8088.github.io/eval-analyzer/) (thanks @doggy8088)
+- [Eval Analyzer (Streamlit Cloud)](https://ai-twinkle-eval-analyzer.streamlit.app/) (thanks @thliang01)
+
 ## 📌 功能特色
 
 <p align="center">
