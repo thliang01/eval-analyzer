@@ -18,11 +18,13 @@ jobs:
         
         echo "Pinging Streamlit app at $(date)"
         
-        # Send HTTP request to keep app awake
-        response=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$APP_URL")
+        # Send HTTP request to keep app awake (follow redirects)
+        response=$(curl -s -o /dev/null -w "%{http_code}" -L --max-time 30 "$APP_URL")
         
         if [ "$response" -eq 200 ]; then
           echo "✅ App is alive! HTTP status: $response"
+        elif [ "$response" -eq 303 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ]; then
+          echo "✅ App responded with redirect: $response (this is normal)"
         else
           echo "⚠️ Unexpected response: $response"
           # Don't fail the workflow for non-200 responses
